@@ -12,8 +12,16 @@ module CommonMath
         iterations.times { RbMath.new.fibonacci(number) }
       end
 
+      bm.report('rb-tail') do
+        iterations.times { RbMath.new.fibonacci_tail(number) }
+      end
+
       bm.report('cr') do
         iterations.times { CrMath.new.fibonacci(number) }
+      end
+
+      bm.report('cr-tail') do
+        iterations.times { CrMath.new.fibonacci_tail(number) }
       end
     end
 

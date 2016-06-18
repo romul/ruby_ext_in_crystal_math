@@ -21,6 +21,17 @@ def fibonacci_cr(n)
   n <= 1 ? n :  fibonacci_cr(n - 1) + fibonacci_cr(n - 2)
 end
 
+def fibonacci_tail_cr_wrapper(self : CrRuby::VALUE, value : CrRuby::VALUE)
+  int_value = CrRuby.rb_num2int(value)
+  CrRuby.rb_int2inum(fibonacci_cr(int_value))
+end
+
+def fibonacci_tail_cr(n, prevVal = 0, nextVal = 1)
+  return prevVal if n == 0
+  return nextVal if n == 1
+  return fibonacci_tail_cr(n-1, nextVal, prevVal + nextVal)
+end
+
 fun init = Init_common_math
   GC.init
   LibCrystalMain.__crystal_main(0, Pointer(Pointer(UInt8)).null)
@@ -28,4 +39,6 @@ fun init = Init_common_math
   math_module = CrRuby.rb_define_module("CommonMath")
   cr_math = CrRuby.rb_define_class_under(math_module, "CrMath", CrRuby.rb_cObject);
   CrRuby.rb_define_method(cr_math, "fibonacci", ->fibonacci_cr_wrapper, 1)
+  CrRuby.rb_define_method(cr_math, "fibonacci_tail", ->fibonacci_tail_cr_wrapper, 1)
+
 end
