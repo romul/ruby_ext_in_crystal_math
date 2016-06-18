@@ -23,7 +23,7 @@ end
 
 def fibonacci_tail_cr_wrapper(self : CrRuby::VALUE, value : CrRuby::VALUE)
   int_value = CrRuby.rb_num2int(value)
-  CrRuby.rb_int2inum(fibonacci_cr(int_value))
+  CrRuby.rb_int2inum(fibonacci_tail_cr(int_value))
 end
 
 def fibonacci_tail_cr(n, prevVal = 0, nextVal = 1)
